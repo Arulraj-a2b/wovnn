@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
                 {socialMediaRow1.map((social, index) => (
                   <button
                     key={index}
-                    className="w-[41px] h-[41px] bg-[#505564] border border-[#505564] rounded-[4px] flex items-center justify-center hover:bg-[#646978] transition-colors"
+                    className="w-[41px] h-[41px] bg-[#505564] border border-[#505564] rounded-[4px] flex items-center justify-center hover:bg-[#646978] transition-colors cursor-pointer"
                     aria-label={social.name}
                   >
                     <social.icon className="w-4 h-4 text-[#f7f8f9]" />
@@ -90,7 +90,7 @@ const Footer: React.FC = () => {
                 {socialMediaRow2.map((social, index) => (
                   <button
                     key={index}
-                    className="w-[41px] h-[41px] bg-[#505564] border border-[#505564] rounded-[4px] flex items-center justify-center hover:bg-[#646978] transition-colors"
+                    className="w-[41px] h-[41px] bg-[#505564] border border-[#505564] rounded-[4px] flex items-center justify-center hover:bg-[#646978] transition-colors cursor-pointer"
                     aria-label={social.name}
                   >
                     <social.icon className="w-4 h-4 text-[#f7f8f9]" />
@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
                   placeholder="Enter your email Address"
                   className="flex-1 h-[41px] px-[18px] bg-white border border-[#f0f5ff] rounded-l-[4px] text-[#787d8c] text-[14px] leading-[1.5] outline-none"
                 />
-                <button className="w-[111px] h-[41px] bg-[#22a9e0] text-white text-base font-medium rounded-r-[4px] shadow-[0px_0px_10px_rgba(182,182,182,0.5)] hover:bg-[#1a8bc2] transition-colors whitespace-nowrap">
+                <button className="w-[111px] h-[41px] bg-[#22a9e0] text-white text-base font-medium rounded-r-[4px] shadow-[0px_0px_10px_rgba(182,182,182,0.5)] hover:bg-[#1a8bc2] transition-colors whitespace-nowrap cursor-pointer">
                   Submit
                 </button>
               </div>
@@ -164,7 +164,7 @@ const Footer: React.FC = () => {
             {footerLinks.map((link, index) => (
               <button
                 key={index}
-                className="whitespace-nowrap hover:text-white transition-colors"
+                className="whitespace-nowrap hover:text-white transition-colors cursor-pointer"
               >
                 {link}
               </button>

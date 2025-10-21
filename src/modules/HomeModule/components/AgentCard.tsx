@@ -56,7 +56,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
         </div>
       </div>
 
-      <button className="text-[#22a9e0] text-[16px] font-bold leading-[normal] whitespace-nowrap">
+      <button className="text-[#22a9e0] text-[16px] font-bold leading-[normal] whitespace-nowrap cursor-pointer hover:text-[#1a8bc2] transition-colors">
         View Profile
       </button>
     </div>

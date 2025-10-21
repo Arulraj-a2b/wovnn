@@ -60,7 +60,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 <span className="text-[#22a9e0] text-xs">{videoCount}</span>
               </div>
             )}
-            <button className="bg-white w-8 h-8 rounded-full flex items-center justify-center">
+            <button className="bg-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors">
               <SvgHeart className="w-4 h-4 text-[#22a9e0]" />
             </button>
           </div>

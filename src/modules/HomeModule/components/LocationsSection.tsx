@@ -11,7 +11,7 @@ const LocationsSection: React.FC = () => {
           <h2 className="text-[#141928] text-5xl font-bold text-center flex-1">
             View by Locations
           </h2>
-          <button className="text-[#141928] text-right text-base font-medium whitespace-nowrap">
+          <button className="text-[#141928] text-right text-base font-medium whitespace-nowrap cursor-pointer hover:text-[#22a9e0] transition-colors">
             View All Locations
           </button>
         </div>

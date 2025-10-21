@@ -21,7 +21,7 @@ const FeaturedListings: React.FC = () => {
 
           {/* More Listing Button */}
           <div className="flex justify-end mt-10">
-            <button className="border border-[#141928] text-[#141928] px-12 py-3 rounded font-medium">
+            <button className="border border-[#141928] text-[#141928] px-12 py-3 rounded font-medium cursor-pointer hover:bg-[#141928] hover:text-white transition-colors">
               More Listing
             </button>
           </div>

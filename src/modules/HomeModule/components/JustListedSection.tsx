@@ -11,7 +11,7 @@ const JustListedSection: React.FC = () => {
           <h2 className="text-[#141928] text-[48px] font-bold leading-normal text-center flex-1 whitespace-nowrap">
             Just Listed Homes for Sale in Beaverton, OR
           </h2>
-          <button className="text-[#141928] text-right text-base font-medium leading-[1.5] whitespace-nowrap">
+          <button className="text-[#141928] text-right text-base font-medium leading-[1.5] whitespace-nowrap cursor-pointer hover:text-[#22a9e0] transition-colors">
             View All Locations
           </button>
         </div>

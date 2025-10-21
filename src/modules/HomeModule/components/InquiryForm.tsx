@@ -193,7 +193,7 @@ const InquiryForm: React.FC = () => {
 
       {/* Submit Button */}
       <div className="flex justify-center">
-        <button className="w-[233px] h-[47px] bg-[#22a9e0] text-white text-base font-medium rounded-[4px] shadow-[0px_0px_10px_rgba(182,182,182,0.5)] hover:bg-[#1a8bc2] transition-colors">
+        <button className="w-[233px] h-[47px] bg-[#22a9e0] text-white text-base font-medium rounded-[4px] shadow-[0px_0px_10px_rgba(182,182,182,0.5)] hover:bg-[#1a8bc2] transition-colors cursor-pointer">
           Submit
         </button>
       </div>

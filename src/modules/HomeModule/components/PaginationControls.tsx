@@ -35,7 +35,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="bg-[#f7f8f9] border border-[#22a9e0] text-[#22a9e0] w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#22a9e0] hover:text-white transition-colors"
+        className="bg-[#f7f8f9] border border-[#22a9e0] text-[#22a9e0] w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-[#22a9e0] hover:text-white transition-colors"
       >
         <SvgChevronLeft className="w-4 h-4" />
       </button>
@@ -45,7 +45,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
           <button
             key={page}
             onClick={() => handlePageClick(page)}
-            className={`rounded-full transition-all ${
+            className={`rounded-full transition-all cursor-pointer ${
               page === currentPage
                 ? "w-3.5 h-3.5 border-2 border-[#22a9e0] relative"
                 : "w-1.5 h-1.5 bg-[#22a9e0] hover:w-2 hover:h-2"
@@ -61,7 +61,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="bg-[#22a9e0] text-white w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#1a8bc2] transition-colors"
+        className="bg-[#22a9e0] text-white w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-[#1a8bc2] transition-colors"
       >
         <SvgChevronRight className="w-4 h-4" />
       </button>
