@@ -65,6 +65,8 @@ export const featuredCommunities: string[] = [
 export const partnerLogos: string[] = [
   brokerReciprocityImg,
   rmlsImg,
+  brokerReciprocityImg, // Duplicate as shown in Figma
+  brokerReciprocityImg, // Duplicate as shown in Figma
   willametteValleyBoardImg,
 ];
 
