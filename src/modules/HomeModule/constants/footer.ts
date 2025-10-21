@@ -9,6 +9,16 @@ import {
   SvgFax,
   SvgEnvelope,
   SvgSkype,
+  SvgFacebook,
+  SvgRss,
+  SvgTwitter,
+  SvgDribbble,
+  SvgGoogle,
+  SvgLinkedIn,
+  SvgTumblr,
+  SvgPinterest,
+  SvgYoutube,
+  SvgVimeo,
 } from "@/assets/icons";
 
 export interface ContactInfo {
@@ -20,7 +30,7 @@ export interface ContactInfo {
 export interface SocialLink {
   name: string;
   icon: React.ComponentType<{ className?: string }>;
-  url: string;
+  url?: string;
 }
 
 export const contactInfo: ContactInfo[] = [
@@ -68,6 +78,22 @@ export const partnerLogos: string[] = [
   brokerReciprocityImg, // Duplicate as shown in Figma
   brokerReciprocityImg, // Duplicate as shown in Figma
   willametteValleyBoardImg,
+];
+
+export const socialMediaRow1: SocialLink[] = [
+  { icon: SvgFacebook, name: "Facebook", url: "#" },
+  { icon: SvgRss, name: "RSS", url: "#" },
+  { icon: SvgTwitter, name: "Twitter", url: "#" },
+  { icon: SvgDribbble, name: "Dribbble", url: "#" },
+  { icon: SvgGoogle, name: "Google", url: "#" },
+];
+
+export const socialMediaRow2: SocialLink[] = [
+  { icon: SvgLinkedIn, name: "LinkedIn", url: "#" },
+  { icon: SvgTumblr, name: "Tumblr", url: "#" },
+  { icon: SvgPinterest, name: "Pinterest", url: "#" },
+  { icon: SvgYoutube, name: "YouTube", url: "#" },
+  { icon: SvgVimeo, name: "Vimeo", url: "#" },
 ];
 
 export const footerLinks: string[] = [

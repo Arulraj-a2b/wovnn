@@ -4,37 +4,11 @@ import {
   featuredCommunities,
   partnerLogos,
   footerLinks,
+  socialMediaRow1,
+  socialMediaRow2,
 } from "../constants/footer";
-import {
-  SvgFacebook,
-  SvgTwitter,
-  SvgLinkedIn,
-  SvgYoutube,
-  SvgPinterest,
-  SvgRss,
-  SvgDribbble,
-  SvgGoogle,
-  SvgTumblr,
-  SvgVimeo,
-} from "../../../assets/icons";
 
 const Footer: React.FC = () => {
-  const socialMediaRow1 = [
-    { icon: SvgFacebook, name: "Facebook" },
-    { icon: SvgRss, name: "RSS" },
-    { icon: SvgTwitter, name: "Twitter" },
-    { icon: SvgDribbble, name: "Dribbble" },
-    { icon: SvgGoogle, name: "Google" },
-  ];
-
-  const socialMediaRow2 = [
-    { icon: SvgLinkedIn, name: "LinkedIn" },
-    { icon: SvgTumblr, name: "Tumblr" },
-    { icon: SvgPinterest, name: "Pinterest" },
-    { icon: SvgYoutube, name: "YouTube" },
-    { icon: SvgVimeo, name: "Vimeo" },
-  ];
-
   return (
     <footer className="bg-[#141928] text-white">
       {/* Main Footer Content */}
