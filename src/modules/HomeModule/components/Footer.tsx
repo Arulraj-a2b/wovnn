@@ -143,7 +143,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Copyright Text */}
-      <div className="max-w-[1200px] mx-auto px-[45px] text-[#f7f8f9] text-[14px] leading-[1.5]">
+      <div className="max-w-[1200px] mx-auto px-[45px] text-[#f7f8f9] text-[14px] leading-[1.5] gap-20 mt-20">
         <p>
           <span className="font-bold">
             ©2023, Lincoln County MLS. All rights reserved.{" "}
