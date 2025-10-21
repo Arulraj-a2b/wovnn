@@ -6,10 +6,19 @@ const PropertyTypeCard: React.FC<PropertyTypeCardProps> = ({
   image,
   type,
   count,
-  tall = false,
+  tall = "short",
   darkOverlay = false,
 }) => {
-  const height = tall ? "h-[583.31px]" : "h-[276.66px]";
+  let height;
+
+  if (tall === "short") {
+    height = "h-[276.66px]";
+  } else if (tall === "medium") {
+    height = "h-[583.31px]";
+  } else if (tall === "full") {
+    height = "h-[100%]";
+  }
+
   const overlayOpacity = darkOverlay ? "opacity-75" : "opacity-30";
 
   return (

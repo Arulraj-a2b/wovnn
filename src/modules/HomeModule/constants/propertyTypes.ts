@@ -2,7 +2,7 @@ export interface PropertyTypeCardProps {
   image: string;
   type: string;
   count: number;
-  tall?: boolean; // For Studio card
+  tall?: "short" | "medium" | "full"; // For Studio card
   darkOverlay?: boolean; // For Villa card with more opacity
 }
 
@@ -11,12 +11,13 @@ export const propertyTypes: PropertyTypeCardProps[] = [
     image: "https://picsum.photos/seed/apartment/400/400",
     type: "Apartment",
     count: 23,
+    tall: "full",
   },
   {
     image: "https://picsum.photos/seed/studio/400/600",
     type: "Studio",
     count: 7,
-    tall: true,
+    tall: "medium",
   },
   {
     image: "https://picsum.photos/seed/family/400/400",

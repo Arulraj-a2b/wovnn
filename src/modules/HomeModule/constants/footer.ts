@@ -3,9 +3,16 @@ import {
   rmlsImg,
   willametteValleyBoardImg,
 } from "@/assets/images";
+import {
+  SvgMapMarker,
+  SvgPhoneAlt,
+  SvgFax,
+  SvgEnvelope,
+  SvgSkype,
+} from "@/assets/icons";
 
 export interface ContactInfo {
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
   text: string;
   type: "address" | "phone" | "fax" | "email" | "skype";
 }
@@ -18,27 +25,27 @@ export interface SocialLink {
 
 export const contactInfo: ContactInfo[] = [
   {
-    icon: "📍",
+    icon: SvgMapMarker,
     text: "20001 SW Tualatin Valley Hwy Beaverton, OR 97003",
     type: "address",
   },
   {
-    icon: "📞",
+    icon: SvgPhoneAlt,
     text: "503.259.2100",
     type: "phone",
   },
   {
-    icon: "📠",
+    icon: SvgFax,
     text: "503.259.2100",
     type: "fax",
   },
   {
-    icon: "✉️",
+    icon: SvgEnvelope,
     text: "allprofessionalsre@gmail.com",
     type: "email",
   },
   {
-    icon: "💬",
+    icon: SvgSkype,
     text: "allprofessionalsre",
     type: "skype",
   },

@@ -11,23 +11,28 @@ import {
   SvgLinkedIn,
   SvgYoutube,
   SvgPinterest,
+  SvgRss,
+  SvgDribbble,
+  SvgGoogle,
+  SvgTumblr,
+  SvgVimeo,
 } from "../../../assets/icons";
 
 const Footer: React.FC = () => {
   const socialMediaRow1 = [
     { icon: SvgFacebook, name: "Facebook" },
-    { icon: SvgTwitter, name: "RSS" },
+    { icon: SvgRss, name: "RSS" },
     { icon: SvgTwitter, name: "Twitter" },
-    { icon: SvgTwitter, name: "Dribbble" },
-    { icon: SvgTwitter, name: "Google" },
+    { icon: SvgDribbble, name: "Dribbble" },
+    { icon: SvgGoogle, name: "Google" },
   ];
 
   const socialMediaRow2 = [
     { icon: SvgLinkedIn, name: "LinkedIn" },
-    { icon: SvgTwitter, name: "Tumblr" },
+    { icon: SvgTumblr, name: "Tumblr" },
     { icon: SvgPinterest, name: "Pinterest" },
     { icon: SvgYoutube, name: "YouTube" },
-    { icon: SvgTwitter, name: "Vimeo" },
+    { icon: SvgVimeo, name: "Vimeo" },
   ];
 
   return (
@@ -46,7 +51,7 @@ const Footer: React.FC = () => {
                   key={index}
                   className="flex items-center gap-3 text-[#f7f8f9] text-[14px] leading-[1.5] pb-1"
                 >
-                  <span className="text-[14px]">{contact.icon}</span>
+                  <contact.icon className="w-[14px] h-[14px] text-[#f7f8f9] flex-shrink-0" />
                   <span className="whitespace-nowrap">{contact.text}</span>
                 </div>
               ))}
@@ -72,7 +77,7 @@ const Footer: React.FC = () => {
           {/* Social Media & Email Section */}
           <div className="pt-[45px] flex flex-col gap-[50px]">
             {/* Social Media Icons */}
-            <div className="space-y-[50px]">
+            <div className="space-y-5">
               {/* Row 1 */}
               <div className="flex gap-[10px]">
                 {socialMediaRow1.map((social, index) => (

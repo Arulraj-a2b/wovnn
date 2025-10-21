@@ -31,6 +31,16 @@ This folder contains all reusable SVG icon components for the application.
 | 💼   | `SvgLinkedIn`     | Social media links, footer                |
 | 📺   | `SvgYoutube`      | Social media links, footer                |
 | 📌   | `SvgPinterest`    | Social media links, footer                |
+| 📡   | `SvgRss`          | Social media links, footer                |
+| 🏀   | `SvgDribbble`     | Social media links, footer                |
+| 🔍   | `SvgGoogle`       | Social media links, footer                |
+| 📝   | `SvgTumblr`       | Social media links, footer                |
+| 🎬   | `SvgVimeo`        | Social media links, footer                |
+| 🗺️   | `SvgMapMarker`    | Footer contact, address icon              |
+| ☎️   | `SvgPhoneAlt`     | Footer contact, phone icon                |
+| 📠   | `SvgFax`          | Footer contact, fax icon                  |
+| ✉️   | `SvgEnvelope`     | Footer contact, email icon                |
+| 💬   | `SvgSkype`        | Footer contact, Skype icon                |
 
 ## Usage
 
@@ -147,8 +157,9 @@ Always provide appropriate `aria-label` when icons are used without text:
   - `SvgArrowDown`
 - **TestimonialCard & TestimonialsSection**: Client testimonials
   - `SvgStar`
-- **Footer**: Social media, contact
-  - `SvgFacebook`, `SvgTwitter`, `SvgLinkedIn`, `SvgYoutube`, `SvgPinterest`
+- **Footer**: Social media, contact information
+  - `SvgFacebook`, `SvgRss`, `SvgTwitter`, `SvgDribbble`, `SvgGoogle`, `SvgLinkedIn`, `SvgTumblr`, `SvgPinterest`, `SvgYoutube`, `SvgVimeo`
+  - `SvgMapMarker`, `SvgPhoneAlt`, `SvgFax`, `SvgEnvelope`, `SvgSkype`
 
 ## Design System
 
