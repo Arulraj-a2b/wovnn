@@ -1,3 +1,9 @@
+import {
+  brokerReciprocityImg,
+  rmlsImg,
+  willametteValleyBoardImg,
+} from "@/assets/images";
+
 export interface ContactInfo {
   icon: string;
   text: string;
@@ -50,11 +56,9 @@ export const featuredCommunities: string[] = [
 ];
 
 export const partnerLogos: string[] = [
-  "https://picsum.photos/seed/logo1/167/35",
-  "https://picsum.photos/seed/logo2/120/42",
-  "https://picsum.photos/seed/logo3/167/35",
-  "https://picsum.photos/seed/logo4/167/35",
-  "https://picsum.photos/seed/logo5/143/49",
+  brokerReciprocityImg,
+  rmlsImg,
+  willametteValleyBoardImg,
 ];
 
 export const footerLinks: string[] = [
