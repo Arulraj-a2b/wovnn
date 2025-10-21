@@ -62,4 +62,3 @@ export const footerLinks: string[] = [
   "Video Tutorial",
   "Client Support",
 ];
-

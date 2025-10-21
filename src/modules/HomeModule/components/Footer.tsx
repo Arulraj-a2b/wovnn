@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
 
             {/* Homes by Email */}
             <div>
-              <h3 className="text-white text-[20px] font-bold leading-normal text-center mb-[3px] whitespace-nowrap">
+              <h3 className="text-white text-[20px] font-bold leading-normal mb-[3px] whitespace-nowrap">
                 Homes by Email
               </h3>
               <p className="text-white text-[12px] leading-[1.5] text-center mb-[17px] whitespace-nowrap">
@@ -126,16 +126,11 @@ const Footer: React.FC = () => {
       <div className="max-w-[1260px] mx-auto px-[30px] py-5">
         <div className="flex items-center justify-between gap-[15px]">
           {partnerLogos.map((logo, index) => (
-            <div
-              key={index}
-              className={`bg-white rounded-[10px] w-[233px] h-[115px] flex items-center justify-center px-5 py-10 ${
-                index === 0 ? "border-2 border-[#22a9e0]" : ""
-              }`}
-            >
+            <div key={index} className={`w-[233px] h-[115px]`}>
               <img
                 src={logo}
                 alt={`Partner ${index + 1}`}
-                className="max-w-full max-h-full object-contain"
+                className="w-full h-full object-cover rounded-[10px]"
               />
             </div>
           ))}
