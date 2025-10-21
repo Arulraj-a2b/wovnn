@@ -18,3 +18,8 @@ export { SvgLocationPin } from "./SvgLocationPin";
 export { SvgPhone } from "./SvgPhone";
 export { SvgArrowDown } from "./SvgArrowDown";
 export { SvgStar } from "./SvgStar";
+export { SvgFacebook } from "./SvgFacebook";
+export { SvgTwitter } from "./SvgTwitter";
+export { SvgLinkedIn } from "./SvgLinkedIn";
+export { SvgYoutube } from "./SvgYoutube";
+export { SvgPinterest } from "./SvgPinterest";

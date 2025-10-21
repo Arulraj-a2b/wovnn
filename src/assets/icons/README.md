@@ -26,6 +26,11 @@ This folder contains all reusable SVG icon components for the application.
 | 📞   | `SvgPhone`        | Contact actions, call to action           |
 | ⬇️   | `SvgArrowDown`    | "More" links, property type cards         |
 | ⭐   | `SvgStar`         | Rating display, testimonials              |
+| 📘   | `SvgFacebook`     | Social media links, footer                |
+| 🐦   | `SvgTwitter`      | Social media links, footer                |
+| 💼   | `SvgLinkedIn`     | Social media links, footer                |
+| 📺   | `SvgYoutube`      | Social media links, footer                |
+| 📌   | `SvgPinterest`    | Social media links, footer                |
 
 ## Usage
 
@@ -142,6 +147,8 @@ Always provide appropriate `aria-label` when icons are used without text:
   - `SvgArrowDown`
 - **TestimonialCard & TestimonialsSection**: Client testimonials
   - `SvgStar`
+- **Footer**: Social media, contact
+  - `SvgFacebook`, `SvgTwitter`, `SvgLinkedIn`, `SvgYoutube`, `SvgPinterest`
 
 ## Design System
 
