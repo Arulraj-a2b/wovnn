@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { getPropertiesFeaturedListingsMiddleWare } from "../store/homeMiddleware";
 import PropertyCard from "./PropertyCard";
 import PaginationControls from "./PaginationControls";
+import { routes } from "@/routes/routesPath";
 
 const FeaturedListings: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
   const ITEMS_PER_PAGE = 3;
@@ -93,7 +96,10 @@ const FeaturedListings: React.FC = () => {
             />
 
             <div className="flex justify-end">
-              <button className="border border-[#141928] text-[#141928] px-12 py-3 rounded font-medium cursor-pointer hover:bg-[#141928] hover:text-white transition-colors">
+              <button
+                onClick={() => navigate(routes.SEARCH_VIEW)}
+                className="border border-[#141928] text-[#141928] px-12 py-3 rounded font-medium cursor-pointer hover:bg-[#141928] hover:text-white transition-colors"
+              >
                 More Listing
               </button>
             </div>
