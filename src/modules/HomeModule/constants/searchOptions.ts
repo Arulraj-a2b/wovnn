@@ -18,20 +18,32 @@ export const aboutMenuItems = [
 ];
 
 // Search filter options
-export const propertyTypes = [
-  { value: "apartment", label: "Apartment" },
-  { value: "villa", label: "Villa" },
-  { value: "single-family", label: "Single Family Home" },
-  { value: "condo", label: "Condo" },
-  { value: "townhouse", label: "Townhouse" },
+export const PROPERTY_TYPE_OPTIONS = [
+  { value: "residential", label: "Residential" },
+  { value: "rental", label: "Rental" },
+  { value: "mobilehome", label: "Mobile Home" },
+  { value: "condominium", label: "Condominium" },
+  { value: "multifamily", label: "Multifamily" },
+  { value: "commercial", label: "Commercial" },
+  { value: "commerciallease", label: "Commercial Lease" },
+  { value: "land", label: "Land" },
+  { value: "farm", label: "Farm" },
 ];
 
-export const propertyFeatures = [
-  { value: "pool", label: "Swimming Pool" },
-  { value: "garden", label: "Garden" },
-  { value: "garage", label: "Garage" },
-  { value: "balcony", label: "Balcony" },
-  { value: "gym", label: "Gym" },
+export const PROPERTY_FEATURES_OPTIONS = [
+  { value: "apartment", label: "Apartment" },
+  { value: "boatslip", label: "Boat Slip" },
+  { value: "singlefamilyresidence", label: "Single Family Residence" },
+  { value: "deededparking", label: "Deeded Parking" },
+  { value: "cabin", label: "Cabin" },
+  { value: "condominium", label: "Condominium" },
+  { value: "duplex", label: "Duplex" },
+  { value: "manufacturedhome", label: "Manufactured Home" },
+  { value: "ownyourown", label: "Own Your Own" },
+  { value: "quadruplex", label: "Quadruplex" },
+  { value: "stockcooperative", label: "Stock Cooperative" },
+  { value: "townhouse", label: "Townhouse" },
+  { value: "timeshare", label: "Timeshare" },
 ];
 
 export const budgetRanges = [

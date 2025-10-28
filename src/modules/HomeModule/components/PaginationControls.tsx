@@ -31,7 +31,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 mt-10">
+    <div className="flex items-center justify-center gap-4">
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}

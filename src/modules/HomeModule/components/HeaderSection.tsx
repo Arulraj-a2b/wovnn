@@ -21,22 +21,21 @@ import {
   SvgHome,
   SvgSliders,
   SvgDollarSign,
-  SvgPalette,
-  SvgImage,
   SvgUser,
 } from "../../../assets/icons";
 import {
   searchMenuItems,
   resourcesMenuItems,
   aboutMenuItems,
-  propertyTypes,
-  propertyFeatures,
+  PROPERTY_TYPE_OPTIONS,
+  PROPERTY_FEATURES_OPTIONS,
   budgetRanges,
-  advancedSearchOptions,
-  lifestyleOptions,
 } from "../constants/searchOptions";
+import { useAppDispatch } from "@/redux/store";
 
 const HeaderSection: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="relative w-full h-[430px] overflow-visible">
       {/* Header Background */}
@@ -169,7 +168,7 @@ const HeaderSection: React.FC = () => {
                 </div>
               </SelectTrigger>
               <SelectContent className="z-[100]">
-                {propertyTypes.map((type) => (
+                {PROPERTY_TYPE_OPTIONS.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
                     {type.label}
                   </SelectItem>
@@ -185,7 +184,7 @@ const HeaderSection: React.FC = () => {
                 </div>
               </SelectTrigger>
               <SelectContent className="z-[100]">
-                {propertyFeatures.map((feature) => (
+                {PROPERTY_FEATURES_OPTIONS.map((feature) => (
                   <SelectItem key={feature.value} value={feature.value}>
                     {feature.label}
                   </SelectItem>
@@ -211,8 +210,8 @@ const HeaderSection: React.FC = () => {
           </div>
 
           {/* Second Row of Search Filters */}
-          <div className="flex items-start gap-6">
-            <Select>
+          <div className="flex items-start gap-6 justify-end">
+            {/* <Select>
               <SelectTrigger className="flex-1 border-[#f0f5ff]">
                 <div className="flex items-center gap-2.5">
                   <SvgPalette className="w-5 h-5 text-[#646978]" />
@@ -226,9 +225,9 @@ const HeaderSection: React.FC = () => {
                   </SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </Select> */}
 
-            <Select>
+            {/* <Select>
               <SelectTrigger className="flex-1 border-[#f0f5ff]">
                 <div className="flex items-center gap-2.5">
                   <SvgImage className="w-5 h-5 text-[#646978]" />
@@ -242,7 +241,7 @@ const HeaderSection: React.FC = () => {
                   </SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </Select> */}
 
             <Button className="px-16">Search</Button>
           </div>
