@@ -58,10 +58,12 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
       signal,
       limit,
       offset,
+      cities,
     }: {
       signal?: GenericAbortSignal;
       limit: number;
-      offset?: number;
+      offset: number;
+      cities?: string;
     },
     { rejectWithValue }
   ) => {
@@ -71,6 +73,7 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
         params: {
           limit,
           offset,
+          cities,
         },
         headers: simplyretsAuthorizationHeader,
       });

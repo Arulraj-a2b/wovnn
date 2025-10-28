@@ -6,18 +6,18 @@ export interface LocationCardProps {
 export const locations: LocationCardProps[] = [
   {
     image: "https://picsum.photos/seed/miami/200/300",
-    name: "Miami",
+    name: "Houston",
   },
   {
     image: "https://picsum.photos/seed/coral/200/300",
-    name: "Coral Gables",
+    name: "Banks",
   },
   {
     image: "https://picsum.photos/seed/hollywood/200/300",
-    name: "Hollywood",
+    name: "Beaverton",
   },
   {
     image: "https://picsum.photos/seed/picsum/200/300",
-    name: "Beaverton",
+    name: "Cornelius",
   },
 ];
