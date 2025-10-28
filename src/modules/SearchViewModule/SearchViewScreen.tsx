@@ -1,40 +1,62 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { getPropertiesFeaturedListingsMiddleWare } from "../HomeModule/store/homeMiddleware";
 import type { GetProperties } from "../HomeModule/store/home.types";
 import MapView from "./components/MapView";
-import PropertyListView from "./components/PropertyListView";
+import PropertyCard from "../HomeModule/components/PropertyCard";
 import { routes } from "@/routes/routesPath";
-import { SvgChevronLeft } from "@/assets/icons";
+import Header from "../HomeModule/components/Header";
 
 const SearchViewScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [selectedProperty, setSelectedProperty] =
     useState<GetProperties | null>(null);
-  const [viewMode, setViewMode] = useState<"split" | "map" | "list">("split");
 
-  const { data, isLoading, error } = useAppSelector(
+  const { data, isLoading, error, totalCount } = useAppSelector(
     (state) => state.getPropertiesFeaturedListingsReducers
   );
 
+  const cityParam = searchParams.get("city");
+
   useEffect(() => {
-    // Fetch all properties (increase limit to get more properties)
-    dispatch(
-      getPropertiesFeaturedListingsMiddleWare({
-        limit: 50,
-        offset: 0,
-      })
-    );
-  }, [dispatch]);
+    const fetchParams: { limit: number; offset: number; cities?: string } = {
+      limit: 50,
+      offset: 0,
+    };
+
+    if (cityParam) {
+      fetchParams.cities = cityParam;
+    }
+
+    dispatch(getPropertiesFeaturedListingsMiddleWare(fetchParams));
+  }, [cityParam]);
 
   const handlePropertyClick = (property: GetProperties) => {
     setSelectedProperty(property);
+    setTimeout(() => {
+      const element = document.getElementById(`property-${property.mlsId}`);
+      element?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }, 100);
   };
 
   const handleMarkerClick = (property: GetProperties) => {
     setSelectedProperty(property);
+    setTimeout(() => {
+      const element = document.getElementById(`property-${property.mlsId}`);
+      element?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }, 100);
   };
 
   const handleBackToHome = () => {
@@ -74,154 +96,75 @@ const SearchViewScreen: React.FC = () => {
   const properties = data || [];
 
   return (
-    <div className="h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm z-10">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleBackToHome}
-              className="flex items-center gap-2 text-[#141928] hover:text-[#22a9e0] transition-colors"
-            >
-              <SvgChevronLeft className="w-6 h-6" />
-              <span className="font-medium">Back to Home</span>
-            </button>
-            <div className="h-8 w-px bg-gray-300" />
-            <h1 className="text-2xl font-bold text-[#141928]">
-              Property Search
-            </h1>
-          </div>
+    <div className="h-screen w-full relative">
+      <div className="bg-[#141928] py-2 px-[90px]">
+        <Header isSearchView />
+      </div>
 
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600 mr-2">View:</span>
-            <button
-              onClick={() => setViewMode("split")}
-              className={`px-4 py-2 rounded-l font-medium transition-colors ${
-                viewMode === "split"
-                  ? "bg-[#22a9e0] text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Split
-            </button>
-            <button
-              onClick={() => setViewMode("map")}
-              className={`px-4 py-2 font-medium transition-colors ${
-                viewMode === "map"
-                  ? "bg-[#22a9e0] text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              Map
-            </button>
-            <button
-              onClick={() => setViewMode("list")}
-              className={`px-4 py-2 rounded-r font-medium transition-colors ${
-                viewMode === "list"
-                  ? "bg-[#22a9e0] text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              List
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-hidden">
-        {viewMode === "split" && (
-          <div className="h-full flex">
-            {/* Properties List - Left Side */}
-            <div className="w-1/2 h-full border-r border-gray-200">
-              <PropertyListView
-                properties={properties}
-                onPropertyClick={handlePropertyClick}
-                selectedProperty={selectedProperty}
-              />
-            </div>
-
-            {/* Map - Right Side */}
-            <div className="w-1/2 h-full">
-              <MapView
-                properties={properties}
-                onMarkerClick={handleMarkerClick}
-                selectedProperty={selectedProperty}
-              />
-            </div>
-          </div>
-        )}
-
-        {viewMode === "map" && (
-          <div className="h-full">
-            <MapView
-              properties={properties}
-              onMarkerClick={handleMarkerClick}
-              selectedProperty={selectedProperty}
-            />
-          </div>
-        )}
-
-        {viewMode === "list" && (
-          <div className="h-full">
-            <PropertyListView
-              properties={properties}
-              onPropertyClick={handlePropertyClick}
-              selectedProperty={selectedProperty}
-            />
-          </div>
-        )}
-      </main>
-
-      {/* Selected Property Info Bar (Optional) */}
-      {selectedProperty && (
-        <div className="bg-white border-t border-gray-200 px-6 py-4 shadow-lg">
-          <div className="max-w-[1440px] mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <img
-                src={
-                  selectedProperty.photos && selectedProperty.photos[0]
-                    ? selectedProperty.photos[0]
-                    : "https://via.placeholder.com/80x80?text=No+Image"
-                }
-                alt={selectedProperty.address?.full}
-                className="w-20 h-20 object-cover rounded"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://via.placeholder.com/80x80?text=No+Image";
-                }}
-              />
-              <div>
-                <h3 className="text-lg font-bold text-[#141928]">
-                  {selectedProperty.address?.full}
-                </h3>
-                <p className="text-[#22a9e0] font-semibold">
-                  ${selectedProperty.listPrice?.toLocaleString()}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setSelectedProperty(null)}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+      {cityParam && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="bg-white px-6 py-2 rounded-full shadow-lg">
+            <p className="text-sm text-[#141928] font-medium">
+              <span className="text-[#22a9e0]">Location:</span> {cityParam}
+            </p>
           </div>
         </div>
       )}
+
+      <div className=" w-full h-full">
+        <MapView
+          properties={properties}
+          onMarkerClick={handleMarkerClick}
+          selectedProperty={selectedProperty}
+        />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <div>
+          <div className="py-4 px-6">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-bold text-[#141928]">
+                {totalCount > 0 ? totalCount : properties.length} Properties
+                Found
+              </h2>
+              {selectedProperty && (
+                <button
+                  onClick={() => setSelectedProperty(null)}
+                  className="text-sm text-[#22a9e0] hover:text-[#1c8ab8] font-medium"
+                >
+                  Clear Selection
+                </button>
+              )}
+            </div>
+
+            <div
+              ref={scrollContainerRef}
+              className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#9ca3af #e5e7eb",
+              }}
+            >
+              {properties.length > 0 ? (
+                properties.map((property) => (
+                  <div key={property.mlsId} id={`property-${property.mlsId}`}>
+                    <PropertyCard
+                      property={property}
+                      isViewMode={true}
+                      onClick={() => handlePropertyClick(property)}
+                      isSelected={selectedProperty?.mlsId === property.mlsId}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="w-full text-center py-8">
+                  <p className="text-gray-500">No properties found</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

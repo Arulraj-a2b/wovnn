@@ -6,6 +6,7 @@ const getPropertiesInitialState: GetPropertiesReducerState = {
   isLoading: false,
   error: "",
   data: [],
+  totalCount: 0,
 };
 
 const getPropertiesFeaturedListingsReducer = createSlice({
@@ -26,7 +27,8 @@ const getPropertiesFeaturedListingsReducer = createSlice({
       getPropertiesFeaturedListingsMiddleWare.fulfilled,
       (state, action) => {
         state.isLoading = false;
-        state.data = action.payload;
+        state.data = action.payload?.data;
+        state.totalCount = action.payload?.totalCount ?? 0;
       }
     );
     builder.addCase(

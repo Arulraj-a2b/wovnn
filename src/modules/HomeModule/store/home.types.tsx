@@ -202,4 +202,5 @@ export interface GetPropertiesReducerState {
   isLoading: boolean;
   error: string;
   data: GetProperties[];
+  totalCount: number;
 }

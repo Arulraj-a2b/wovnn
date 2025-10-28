@@ -1,3 +1,10 @@
+import {
+  location1Img,
+  location2Img,
+  location3Img,
+  location4Img,
+} from "@/assets/images";
+
 export interface LocationCardProps {
   image: string;
   name: string;
@@ -5,19 +12,19 @@ export interface LocationCardProps {
 
 export const locations: LocationCardProps[] = [
   {
-    image: "https://picsum.photos/seed/miami/200/300",
+    image: location1Img,
     name: "Houston",
   },
   {
-    image: "https://picsum.photos/seed/coral/200/300",
-    name: "Banks",
+    image: location2Img,
+    name: "Oak Ridge",
   },
   {
-    image: "https://picsum.photos/seed/hollywood/200/300",
-    name: "Beaverton",
+    image: location3Img,
+    name: "Cypress",
   },
   {
-    image: "https://picsum.photos/seed/picsum/200/300",
-    name: "Cornelius",
+    image: location4Img,
+    name: "Katy",
   },
 ];

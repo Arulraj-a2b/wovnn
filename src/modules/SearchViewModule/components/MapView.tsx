@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { renderToString } from "react-dom/server";
+import PropertyCard from "@/modules/HomeModule/components/PropertyCard";
 import type { GetProperties } from "@/modules/HomeModule/store/home.types";
 
 interface MapViewProps {
@@ -7,9 +9,6 @@ interface MapViewProps {
   selectedProperty?: GetProperties | null;
 }
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBSL9kG1KcRO7c22kUonSMstqwQ6Cf2zlk";
-
-// Declare global google object
 declare global {
   interface Window {
     google: any;
@@ -30,13 +29,11 @@ const MapView: React.FC<MapViewProps> = ({
   useEffect(() => {
     const loadGoogleMapsScript = () => {
       return new Promise<void>((resolve, reject) => {
-        // Check if already loaded
         if (window.google && window.google.maps) {
           resolve();
           return;
         }
 
-        // Check if script is already being loaded
         const existingScript = document.querySelector(
           `script[src*="maps.googleapis.com"]`
         );
@@ -48,9 +45,10 @@ const MapView: React.FC<MapViewProps> = ({
           return;
         }
 
-        // Create and load script
         const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${
+          import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+        }&libraries=places`;
         script.async = true;
         script.defer = true;
         script.addEventListener("load", () => resolve());
@@ -69,10 +67,8 @@ const MapView: React.FC<MapViewProps> = ({
 
         const google = window.google;
 
-        // Default center (Oregon)
         const defaultCenter = { lat: 45.5152, lng: -122.6784 };
 
-        // Calculate center from properties
         let center = defaultCenter;
         if (properties.length > 0) {
           const validProperties = properties.filter(
@@ -89,7 +85,6 @@ const MapView: React.FC<MapViewProps> = ({
           }
         }
 
-        // Create map using standard google.maps.Map
         const map = new google.maps.Map(mapRef.current, {
           center,
           zoom: 11,
@@ -102,59 +97,54 @@ const MapView: React.FC<MapViewProps> = ({
 
         googleMapRef.current = map;
 
-        // Clear existing markers
         markersRef.current.forEach((marker) => {
           marker.setMap(null);
         });
         markersRef.current = [];
 
-        // Add standard markers for each property
         properties.forEach((property) => {
           if (property.geo && property.geo.lat && property.geo.lng) {
             const price = property.listPrice
               ? `$${property.listPrice.toLocaleString()}`
               : "N/A";
 
-            // Create custom icon with brand colors
             const marker = new google.maps.Marker({
               map,
               position: { lat: property.geo.lat, lng: property.geo.lng },
               title: `${property.address.full} - ${price}`,
-              icon: {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 10,
-                fillColor: "#22a9e0",
-                fillOpacity: 1,
-                strokeColor: "#141928",
-                strokeWeight: 2,
-              },
-              animation: google.maps.Animation.DROP,
             });
 
-            // Create info window
+            const propertyCardHTML = renderToString(
+              <PropertyCard property={property} isViewMode={true} />
+            );
+
+            const tailwindLink = Array.from(
+              document.querySelectorAll('link[rel="stylesheet"]')
+            )
+              .map((link) => (link as HTMLLinkElement).href)
+              .filter(
+                (href) =>
+                  href.includes("tailwind") || href.includes("index.css")
+              )
+              .map((href) => `<link rel="stylesheet" href="${href}">`)
+              .join("");
+
             const infoWindow = new google.maps.InfoWindow({
               content: `
-                <div style="padding: 10px; max-width: 250px;">
-                  <h3 style="margin: 0 0 8px 0; color: #141928; font-size: 16px; font-weight: bold;">${price}</h3>
-                  <p style="margin: 0 0 4px 0; color: #666; font-size: 14px;">${
-                    property.address.full
-                  }</p>
-                  <p style="margin: 0; color: #22a9e0; font-size: 12px;">
-                    ${property.property?.bedrooms || 0} beds • ${
-                property.property?.bathsFull || 0
-              } baths • ${
-                property.property?.area
-                  ? property.property.area.toLocaleString() + " sqft"
-                  : "N/A"
-              }
-                  </p>
+                <div>
+                  ${tailwindLink}
+                  <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+                    * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+                  </style>
+                  <div style="max-width: 300px;">
+                    ${propertyCardHTML}
+                  </div>
                 </div>
               `,
             });
 
-            // Add click listener
             marker.addListener("click", () => {
-              // Close all other info windows
               markersRef.current.forEach((m: any) => {
                 if (m.infoWindow) {
                   m.infoWindow.close();
@@ -166,19 +156,16 @@ const MapView: React.FC<MapViewProps> = ({
               if (onMarkerClick) {
                 onMarkerClick(property);
               }
-              // Center map on clicked marker
               map.panTo({ lat: property.geo.lat, lng: property.geo.lng });
               map.setZoom(14);
             });
 
-            // Store info window with marker
             (marker as any).infoWindow = infoWindow;
 
             markersRef.current.push(marker as any);
           }
         });
 
-        // Fit bounds to show all markers
         if (properties.length > 0) {
           const bounds = new google.maps.LatLngBounds();
           properties.forEach((property) => {
@@ -204,7 +191,6 @@ const MapView: React.FC<MapViewProps> = ({
     initMap();
 
     return () => {
-      // Cleanup
       markersRef.current.forEach((marker) => {
         if (marker && marker.setMap) {
           marker.setMap(null);
@@ -212,9 +198,8 @@ const MapView: React.FC<MapViewProps> = ({
       });
       markersRef.current = [];
     };
-  }, [properties, onMarkerClick]);
+  }, []);
 
-  // Highlight selected property marker
   useEffect(() => {
     if (selectedProperty && googleMapRef.current) {
       googleMapRef.current.panTo({
@@ -227,7 +212,7 @@ const MapView: React.FC<MapViewProps> = ({
 
   if (error) {
     return (
-      <div className="h-full flex items-center justify-center bg-gray-100">
+      <div className="h-[70%] flex items-center justify-center bg-gray-100">
         <div className="text-center p-6">
           <p className="text-red-600 font-semibold mb-2 text-lg">Map Error</p>
           <p className="text-gray-600 mb-4">{error}</p>

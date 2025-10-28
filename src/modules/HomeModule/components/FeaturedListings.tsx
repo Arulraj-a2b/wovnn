@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { routes } from "@/routes/routesPath";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { getPropertiesFeaturedListingsMiddleWare } from "../store/homeMiddleware";
 import PropertyCard from "./PropertyCard";
 import PaginationControls from "./PaginationControls";
-import { routes } from "@/routes/routesPath";
 
 const FeaturedListings: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,9 +13,11 @@ const FeaturedListings: React.FC = () => {
 
   const ITEMS_PER_PAGE = 3;
 
-  const { data, isLoading, error } = useAppSelector(
+  const { data, isLoading, error, totalCount } = useAppSelector(
     (state) => state.getPropertiesFeaturedListingsReducers
   );
+
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
 
   useEffect(() => {
     fetchProperties(currentPage);
@@ -35,8 +37,6 @@ const FeaturedListings: React.FC = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  console.log("Featured properties:", data);
 
   if (isLoading) {
     return (
@@ -85,13 +85,13 @@ const FeaturedListings: React.FC = () => {
           )}
         </div>
 
-        {data && data.length > 0 && (
+        {data && data.length > 0 && totalPages > 0 && (
           <div className="grid grid-cols-3 gap-10 items-center mt-10">
             <div />
 
             <PaginationControls
               currentPage={currentPage}
-              totalPages={5}
+              totalPages={totalPages}
               onPageChange={handlePageChange}
             />
 

@@ -18,6 +18,7 @@ export const getPropertiesSearchMiddleWare = createAsyncThunk(
       maxprice,
       limit,
       postalCodes,
+      offset,
     }: {
       signal?: GenericAbortSignal;
       subtype: string[];
@@ -26,11 +27,12 @@ export const getPropertiesSearchMiddleWare = createAsyncThunk(
       maxprice: number;
       limit: number;
       postalCodes: string[];
+      offset?: number;
     },
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await axios.get(getPropertyApi, {
+      const response = await axios.get(getPropertyApi, {
         signal,
         params: {
           type,
@@ -39,10 +41,20 @@ export const getPropertiesSearchMiddleWare = createAsyncThunk(
           maxprice,
           limit,
           postalCodes,
+          offset,
+          count: true,
         },
         headers: simplyretsAuthorizationHeader,
       });
-      return data;
+
+      const totalCount = response.headers["x-total-count"]
+        ? parseInt(response.headers["x-total-count"], 10)
+        : 0;
+
+      return {
+        data: response.data,
+        totalCount,
+      };
     } catch (error: any) {
       if (error.response) {
         return rejectWithValue(error.response.data);
@@ -68,16 +80,25 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const { data } = await axios.get(getPropertyApi, {
+      const response = await axios.get(getPropertyApi, {
         signal,
         params: {
           limit,
           offset,
           cities,
+          count: true,
         },
         headers: simplyretsAuthorizationHeader,
       });
-      return data;
+
+      const totalCount = response.headers["x-total-count"]
+        ? parseInt(response.headers["x-total-count"], 10)
+        : 0;
+
+      return {
+        data: response.data,
+        totalCount,
+      };
     } catch (error: any) {
       if (error.response) {
         return rejectWithValue(error.response.data);

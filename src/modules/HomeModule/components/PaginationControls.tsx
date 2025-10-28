@@ -30,38 +30,92 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     }
   };
 
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxPagesToShow = 5;
+
+    if (totalPages <= maxPagesToShow + 2) {
+      // Show all pages if total is small
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show first page
+      pages.push(1);
+
+      if (currentPage <= 3) {
+        // Near the start
+        for (let i = 2; i <= 4; i++) {
+          pages.push(i);
+        }
+        pages.push("ellipsis-end");
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        // Near the end
+        pages.push("ellipsis-start");
+        for (let i = totalPages - 3; i <= totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        // In the middle
+        pages.push("ellipsis-start");
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
+        pages.push("ellipsis-end");
+        pages.push(totalPages);
+      }
+    }
+
+    return pages;
+  };
+
+  const pageNumbers = getPageNumbers();
+
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex items-center justify-center gap-2">
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
-        className="bg-[#f7f8f9] border border-[#22a9e0] text-[#22a9e0] w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-[#22a9e0] hover:text-white transition-colors"
+        className="bg-white border border-[#e5e7eb] text-[#141928] w-10 h-10 rounded-lg flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer hover:border-[#22a9e0] hover:text-[#22a9e0] transition-colors"
       >
         <SvgChevronLeft className="w-4 h-4" />
       </button>
 
-      <div className="bg-white shadow-[0px_0px_7px_-2px_rgba(0,0,0,0.19)] rounded-full px-5 py-2 flex items-center gap-5">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageClick(page)}
-            className={`rounded-full transition-all cursor-pointer ${
-              page === currentPage
-                ? "w-3.5 h-3.5 border-2 border-[#22a9e0] relative"
-                : "w-1.5 h-1.5 bg-[#22a9e0] hover:w-2 hover:h-2"
-            }`}
-          >
-            {page === currentPage && (
-              <div className="absolute inset-1 bg-[#22a9e0] rounded-full"></div>
-            )}
-          </button>
-        ))}
+      <div className="flex items-center gap-1">
+        {pageNumbers.map((page, index) => {
+          if (typeof page === "string") {
+            return (
+              <span
+                key={`${page}-${index}`}
+                className="w-10 h-10 flex items-center justify-center text-[#787d8c] text-sm"
+              >
+                ...
+              </span>
+            );
+          }
+
+          return (
+            <button
+              key={page}
+              onClick={() => handlePageClick(page)}
+              className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-all cursor-pointer ${
+                page === currentPage
+                  ? "bg-[#22a9e0] text-white shadow-md"
+                  : "bg-white text-[#141928] border border-[#e5e7eb] hover:border-[#22a9e0] hover:text-[#22a9e0]"
+              }`}
+            >
+              {page}
+            </button>
+          );
+        })}
       </div>
 
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="bg-[#22a9e0] text-white w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer hover:bg-[#1a8bc2] transition-colors"
+        className="bg-[#22a9e0] text-white w-10 h-10 rounded-lg flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer hover:bg-[#1c8ab8] transition-colors"
       >
         <SvgChevronRight className="w-4 h-4" />
       </button>

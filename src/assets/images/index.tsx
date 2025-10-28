@@ -5,6 +5,10 @@ import whyChooseSectionImg from "./whyChooseSection.png";
 import brokerReciprocityImg from "./broker.png";
 import rmlsImg from "./rmls.png";
 import willametteValleyBoardImg from "./willamette.png";
+import location1Img from "./location-1.webp";
+import location2Img from "./location-2.webp";
+import location3Img from "./location-3.webp";
+import location4Img from "./location-4.webp";
 
 export {
   headerSectionImg,
@@ -13,5 +17,10 @@ export {
   whyChooseSectionImg,
   brokerReciprocityImg,
   rmlsImg,
+  rmlsImg as rmls,
   willametteValleyBoardImg,
+  location1Img,
+  location2Img,
+  location3Img,
+  location4Img,
 };
