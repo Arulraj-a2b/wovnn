@@ -198,7 +198,7 @@ const MapView: React.FC<MapViewProps> = ({
       });
       markersRef.current = [];
     };
-  }, []);
+  }, [properties]);
 
   useEffect(() => {
     if (selectedProperty && googleMapRef.current) {
