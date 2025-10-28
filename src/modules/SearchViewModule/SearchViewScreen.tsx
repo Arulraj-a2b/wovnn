@@ -138,16 +138,6 @@ const SearchViewScreen: React.FC = () => {
         <Header isSearchView />
       </div>
 
-      {cityParam && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-30">
-          <div className="bg-white px-6 py-2 rounded-full shadow-lg">
-            <p className="text-sm text-[#141928] font-medium">
-              <span className="text-[#22a9e0]">Location:</span> {cityParam}
-            </p>
-          </div>
-        </div>
-      )}
-
       <div className=" w-full h-full">
         <MapView
           properties={allProperties}
