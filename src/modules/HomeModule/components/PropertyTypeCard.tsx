@@ -2,8 +2,12 @@ import React from "react";
 import { type PropertyTypeCardProps } from "../constants/propertyTypes";
 import { SvgArrowDown } from "../../../assets/icons";
 
-const PropertyTypeCard: React.FC<PropertyTypeCardProps> = React.memo(
-  ({ image, type, count, tall = "short", darkOverlay = false }) => {
+interface PropertyTypeCardComponentProps extends PropertyTypeCardProps {
+  onClick?: () => void;
+}
+
+const PropertyTypeCard: React.FC<PropertyTypeCardComponentProps> = React.memo(
+  ({ image, type, count, tall = "short", darkOverlay = false, onClick }) => {
     let height;
 
     if (tall === "short") {
@@ -19,6 +23,7 @@ const PropertyTypeCard: React.FC<PropertyTypeCardProps> = React.memo(
     return (
       <div
         className={`relative ${height} w-full rounded-[4px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)] overflow-hidden group cursor-pointer`}
+        onClick={onClick}
       >
         {/* Background Image */}
         <img

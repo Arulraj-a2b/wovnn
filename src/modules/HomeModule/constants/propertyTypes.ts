@@ -1,43 +1,59 @@
+import {
+  apartmentImg,
+  officeImg,
+  shopImg,
+  singleFamilyHomeImg,
+  studioImg,
+  villaImg,
+} from "@/assets/images";
+
 export interface PropertyTypeCardProps {
   image: string;
   type: string;
   count: number;
-  tall?: "short" | "medium" | "full"; // For Studio card
-  darkOverlay?: boolean; // For Villa card with more opacity
+  tall?: "short" | "medium" | "full";
+  darkOverlay?: boolean;
+  subtype?: string; // API subtype for search
 }
 
 export const propertyTypes: PropertyTypeCardProps[] = [
   {
-    image: "https://picsum.photos/seed/apartment/400/400",
+    image: apartmentImg,
     type: "Apartment",
     count: 23,
     tall: "full",
+    subtype: "apartment",
   },
   {
-    image: "https://picsum.photos/seed/studio/400/600",
+    image: studioImg,
     type: "Studio",
     count: 7,
     tall: "medium",
+    subtype: "apartment",
   },
   {
-    image: "https://picsum.photos/seed/family/400/400",
+    image: singleFamilyHomeImg,
     type: "Single Family Home",
     count: 12,
+    subtype: "singlefamilyresidence",
   },
   {
-    image: "https://picsum.photos/seed/villa/400/400",
+    image: villaImg,
     type: "Villa",
     count: 10,
     darkOverlay: true,
+    subtype: "singlefamilyresidence",
   },
   {
-    image: "https://picsum.photos/seed/office/400/400",
+    image: officeImg,
     type: "Office",
     count: 3,
+    subtype: "officespace",
   },
   {
-    image: "https://picsum.photos/seed/shop/400/400",
+    image: shopImg,
     type: "Shop",
     count: 3,
+    subtype: "retail",
   },
 ];

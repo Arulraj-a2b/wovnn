@@ -1,4 +1,7 @@
-import { GET_PROPERTIES_FEATURED_LISTINGS } from "@/redux/actions";
+import {
+  GET_PROPERTIES_FEATURED_LISTINGS,
+  GET_PROPERTIES_JUST_LISTED,
+} from "@/redux/actions";
 import { simplyretsAuthorizationHeader } from "@/routes/apiConfig";
 import { getPropertyApi } from "@/routes/apiRoutes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -43,6 +46,48 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
           minprice,
           maxprice,
           postalCodes,
+        },
+        headers: simplyretsAuthorizationHeader,
+      });
+
+      const totalCount = response.headers["x-total-count"]
+        ? parseInt(response.headers["x-total-count"], 10)
+        : 0;
+
+      return {
+        data: response.data,
+        totalCount,
+      };
+    } catch (error: any) {
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  }
+);
+
+export const getPropertiesJustListedMiddleWare = createAsyncThunk(
+  GET_PROPERTIES_JUST_LISTED,
+  async (
+    {
+      signal,
+      limit,
+      offset,
+    }: {
+      signal?: GenericAbortSignal;
+      limit: number;
+      offset: number;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axios.get(getPropertyApi, {
+        signal,
+        params: {
+          limit,
+          offset,
+          cities: "Houston",
+          count: true,
         },
         headers: simplyretsAuthorizationHeader,
       });

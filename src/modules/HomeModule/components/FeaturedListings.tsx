@@ -76,7 +76,18 @@ const FeaturedListings: React.FC = () => {
         <div className="grid grid-cols-3 gap-10">
           {data && data.length > 0 ? (
             data.map((property, index) => (
-              <PropertyCard key={property.mlsId || index} property={property} />
+              <PropertyCard
+                key={property.mlsId || index}
+                property={property}
+                onClick={() =>
+                  navigate(
+                    routes.PROPERTY_DETAILS.replace(
+                      ":mlsId",
+                      property.mlsId.toString()
+                    )
+                  )
+                }
+              />
             ))
           ) : (
             <div className="col-span-3 text-center py-20">

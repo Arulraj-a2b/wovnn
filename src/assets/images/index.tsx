@@ -9,6 +9,12 @@ import location1Img from "./location-1.webp";
 import location2Img from "./location-2.webp";
 import location3Img from "./location-3.webp";
 import location4Img from "./location-4.webp";
+import villaImg from "./villa.webp";
+import studioImg from "./studio.webp";
+import singleFamilyHomeImg from "./singleFamilyHome.webp";
+import officeImg from "./office.webp";
+import shopImg from "./shop.webp";
+import apartmentImg from "./apartment.webp";
 
 export {
   headerSectionImg,
@@ -23,4 +29,10 @@ export {
   location2Img,
   location3Img,
   location4Img,
+  villaImg,
+  studioImg,
+  singleFamilyHomeImg,
+  officeImg,
+  shopImg,
+  apartmentImg,
 };
