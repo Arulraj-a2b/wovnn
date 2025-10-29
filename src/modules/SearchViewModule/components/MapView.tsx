@@ -115,7 +115,7 @@ const MapView: React.FC<MapViewProps> = ({
             });
 
             const propertyCardHTML = renderToString(
-              <PropertyCard property={property} isViewMode={true} />
+              <PropertyCard property={property} isViewMode />
             );
 
             const tailwindLink = Array.from(
@@ -137,7 +137,7 @@ const MapView: React.FC<MapViewProps> = ({
                     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
                     * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
                   </style>
-                  <div style="max-width: 300px;">
+                  <div onclick="window.location.href='/property-details/${property.mlsId}'" style="max-width: 300px;">
                     ${propertyCardHTML}
                   </div>
                 </div>

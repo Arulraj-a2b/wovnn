@@ -33,3 +33,6 @@ export { SvgDribbble } from "./SvgDribbble";
 export { SvgGoogle } from "./SvgGoogle";
 export { SvgTumblr } from "./SvgTumblr";
 export { SvgVimeo } from "./SvgVimeo";
+export { SvgClock } from "./SvgClock";
+export { SvgPlayCircle } from "./SvgPlayCircle";
+export { SvgBreadcrumbArrow } from "./SvgBreadcrumbArrow";

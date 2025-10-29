@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   SvgCamera,
   SvgVideo,
@@ -20,6 +20,21 @@ type PropertyCardProps = {
 
 const PropertyCard: React.FC<PropertyCardProps> = React.memo(
   ({ property, isViewMode, onClick, isSelected = false }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const photos = property.photos || [];
+
+    useEffect(() => {
+      if (photos.length <= 1) return;
+
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === photos.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 3000);
+
+      return () => clearInterval(interval);
+    }, [photos.length]);
+
     return (
       <div
         onClick={onClick}
@@ -34,15 +49,41 @@ const PropertyCard: React.FC<PropertyCardProps> = React.memo(
         )}
       >
         <div
-          className={classNames("relative", {
+          className={classNames("relative overflow-hidden", {
             "h-[180px]": isViewMode,
             "h-[267px]": !isViewMode,
           })}
         >
-          <img
-            src={property.photos?.[0]}
-            className="w-full h-full object-cover"
-          />
+          <div
+            className="flex transition-transform duration-500 ease-in-out h-full"
+            style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+          >
+            {photos.map((photo, index) => (
+              <img
+                key={index}
+                src={photo}
+                className="w-full h-full object-cover flex-shrink-0"
+                alt={`Property image ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {photos.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1.5">
+              {photos.map((_, index) => (
+                <div
+                  key={index}
+                  className={classNames(
+                    "w-1.5 h-1.5 rounded-full transition-all duration-300",
+                    {
+                      "bg-white w-6": currentImageIndex === index,
+                      "bg-white/50": currentImageIndex !== index,
+                    }
+                  )}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="absolute top-2.5 left-2.5 right-2.5 flex justify-between items-center">
             <div className="flex gap-2.5">
