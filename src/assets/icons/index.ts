@@ -36,3 +36,7 @@ export { SvgVimeo } from "./SvgVimeo";
 export { SvgClock } from "./SvgClock";
 export { SvgPlayCircle } from "./SvgPlayCircle";
 export { SvgBreadcrumbArrow } from "./SvgBreadcrumbArrow";
+export { default as SvgShieldCheck } from "./SvgShieldCheck";
+export { default as SvgCalendar } from "./SvgCalendar";
+export { default as SvgHouse } from "./SvgHouse";
+export { default as SvgMoneyBill } from "./SvgMoneyBill";

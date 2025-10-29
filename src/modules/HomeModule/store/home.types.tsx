@@ -204,3 +204,9 @@ export interface GetPropertiesReducerState {
   data: GetProperties[];
   totalCount: number;
 }
+
+export interface GetPropertyDetailsReducerState {
+  isLoading: boolean;
+  error: string;
+  data?: GetProperties;
+}
