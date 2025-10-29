@@ -25,27 +25,90 @@ const SearchViewScreen: React.FC = () => {
     (state) => state.getPropertiesFeaturedListingsReducers
   );
 
-  const cityParam = searchParams.get("city");
+  const location = searchParams.get("location") || "";
+  const type = searchParams.get("type") || "";
+  const subtype = searchParams.get("subtype") || "";
+  const budget = searchParams.get("budget") || "";
+
+  const parseBudget = (
+    budgetValue: string
+  ): { minprice: number; maxprice: number } => {
+    if (!budgetValue) return { minprice: 0, maxprice: 0 };
+
+    const budgetMap: Record<string, { minprice: number; maxprice: number }> = {
+      "0-100k": { minprice: 0, maxprice: 100000 },
+      "100k-200k": { minprice: 100000, maxprice: 200000 },
+      "200k-300k": { minprice: 200000, maxprice: 300000 },
+      "300k-400k": { minprice: 300000, maxprice: 400000 },
+      "400k-500k": { minprice: 400000, maxprice: 500000 },
+      "500k-600k": { minprice: 500000, maxprice: 600000 },
+      "600k-700k": { minprice: 600000, maxprice: 700000 },
+      "700k-800k": { minprice: 700000, maxprice: 800000 },
+      "800k-900k": { minprice: 800000, maxprice: 900000 },
+      "900k-1m": { minprice: 900000, maxprice: 1000000 },
+      "1m-1.5m": { minprice: 1000000, maxprice: 1500000 },
+      "1.5m-2m": { minprice: 1500000, maxprice: 2000000 },
+      "2m-2.5m": { minprice: 2000000, maxprice: 2500000 },
+      "2.5m-3m": { minprice: 2500000, maxprice: 3000000 },
+      "3m-4m": { minprice: 3000000, maxprice: 4000000 },
+      "4m-5m": { minprice: 4000000, maxprice: 5000000 },
+      "5m+": { minprice: 5000000, maxprice: 0 },
+    };
+
+    return budgetMap[budgetValue] || { minprice: 0, maxprice: 0 };
+  };
+
+  const isPostalCode = (location: string): boolean => {
+    return /^\d+$/.test(location);
+  };
 
   useEffect(() => {
     setCurrentPage(1);
     setAllProperties([]);
     setSelectedProperty(null);
-  }, [cityParam]);
+  }, [location, type, subtype, budget]);
 
   useEffect(() => {
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-    const fetchParams: { limit: number; offset: number; cities?: string } = {
+    const { minprice, maxprice } = parseBudget(budget);
+
+    const fetchParams: {
+      limit: number;
+      offset: number;
+      cities?: string;
+      subtype?: string;
+      type?: string;
+      minprice?: number;
+      maxprice?: number;
+      postalCodes?: string[];
+    } = {
       limit: ITEMS_PER_PAGE,
       offset: offset,
     };
 
-    if (cityParam) {
-      fetchParams.cities = cityParam;
+    if (subtype) {
+      fetchParams.subtype = subtype;
+    }
+
+    if (type) {
+      fetchParams.type = type;
+    }
+
+    if (minprice || maxprice) {
+      fetchParams.minprice = minprice;
+      fetchParams.maxprice = maxprice;
+    }
+
+    if (location) {
+      if (isPostalCode(location)) {
+        fetchParams.postalCodes = [location];
+      } else {
+        fetchParams.cities = location;
+      }
     }
 
     dispatch(getPropertiesFeaturedListingsMiddleWare(fetchParams));
-  }, [cityParam, currentPage, dispatch]);
+  }, [location, type, subtype, budget, currentPage, dispatch]);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -127,6 +190,49 @@ const SearchViewScreen: React.FC = () => {
           >
             Back to Home
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show empty state if no properties found
+  if (!isLoading && allProperties.length === 0) {
+    return (
+      <div className="h-screen w-full flex flex-col">
+        <div className="bg-[#141928] py-2 px-[90px]">
+          <Header isSearchView />
+        </div>
+        <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="text-center max-w-md px-4">
+            <div className="mb-6">
+              <svg
+                className="mx-auto h-24 w-24 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">
+              No Properties Found
+            </h2>
+            <p className="text-gray-600 mb-6">
+              We couldn't find any properties matching your search criteria. Try
+              adjusting your filters or search in a different location.
+            </p>
+            <button
+              onClick={handleBackToHome}
+              className="bg-[#22a9e0] text-white px-6 py-3 rounded font-medium hover:bg-[#1c8ab8] transition-colors"
+            >
+              Back to Home
+            </button>
+          </div>
         </div>
       </div>
     );

@@ -1,67 +1,8 @@
-import {
-  GET_PROPERTIES_FEATURED_LISTINGS,
-  GET_PROPERTIES_SEARCH,
-} from "@/redux/actions";
+import { GET_PROPERTIES_FEATURED_LISTINGS } from "@/redux/actions";
 import { simplyretsAuthorizationHeader } from "@/routes/apiConfig";
 import { getPropertyApi } from "@/routes/apiRoutes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { type GenericAbortSignal } from "axios";
-
-export const getPropertiesSearchMiddleWare = createAsyncThunk(
-  GET_PROPERTIES_SEARCH,
-  async (
-    {
-      signal,
-      type,
-      subtype,
-      minprice,
-      maxprice,
-      limit,
-      postalCodes,
-      offset,
-    }: {
-      signal?: GenericAbortSignal;
-      subtype: string[];
-      type: string[];
-      minprice: number;
-      maxprice: number;
-      limit: number;
-      postalCodes: string[];
-      offset?: number;
-    },
-    { rejectWithValue }
-  ) => {
-    try {
-      const response = await axios.get(getPropertyApi, {
-        signal,
-        params: {
-          type,
-          subtype,
-          minprice,
-          maxprice,
-          limit,
-          postalCodes,
-          offset,
-          count: true,
-        },
-        headers: simplyretsAuthorizationHeader,
-      });
-
-      const totalCount = response.headers["x-total-count"]
-        ? parseInt(response.headers["x-total-count"], 10)
-        : 0;
-
-      return {
-        data: response.data,
-        totalCount,
-      };
-    } catch (error: any) {
-      if (error.response) {
-        return rejectWithValue(error.response.data);
-      }
-    }
-  }
-);
 
 export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
   GET_PROPERTIES_FEATURED_LISTINGS,
@@ -71,11 +12,21 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
       limit,
       offset,
       cities,
+      subtype,
+      type,
+      minprice,
+      maxprice,
+      postalCodes,
     }: {
       signal?: GenericAbortSignal;
       limit: number;
       offset: number;
       cities?: string;
+      subtype?: string;
+      type?: string;
+      minprice?: number;
+      maxprice?: number;
+      postalCodes?: string[];
     },
     { rejectWithValue }
   ) => {
@@ -87,6 +38,11 @@ export const getPropertiesFeaturedListingsMiddleWare = createAsyncThunk(
           offset,
           cities,
           count: true,
+          subtype,
+          type,
+          minprice,
+          maxprice,
+          postalCodes,
         },
         headers: simplyretsAuthorizationHeader,
       });

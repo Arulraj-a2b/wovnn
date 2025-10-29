@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -22,8 +23,36 @@ import {
   budgetRanges,
 } from "../constants/searchOptions";
 import Header from "./Header";
+import { routes } from "@/routes/routesPath";
 
 const HeaderSection: React.FC = () => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useState({
+    location: "",
+    propertyType: "",
+    propertyFeatures: "",
+    budget: "",
+  });
+
+  const handleSearch = () => {
+    const queryParams = new URLSearchParams();
+
+    if (searchParams.location) {
+      queryParams.append("location", searchParams.location);
+    }
+    if (searchParams.propertyType) {
+      queryParams.append("type", searchParams.propertyType);
+    }
+    if (searchParams.propertyFeatures) {
+      queryParams.append("subtype", searchParams.propertyFeatures);
+    }
+    if (searchParams.budget) {
+      queryParams.append("budget", searchParams.budget);
+    }
+
+    navigate(`${routes.SEARCH_VIEW}?${queryParams.toString()}`);
+  };
+
   return (
     <div className="relative w-full h-[430px] overflow-visible">
       <div className="absolute inset-0 h-[350px] overflow-visible">
@@ -55,10 +84,19 @@ const HeaderSection: React.FC = () => {
               <Input
                 placeholder="Enter City or Zip Code"
                 className="pl-10 border-[#f0f5ff]"
+                value={searchParams.location}
+                onChange={(e) =>
+                  setSearchParams({ ...searchParams, location: e.target.value })
+                }
               />
             </div>
 
-            <Select>
+            <Select
+              value={searchParams.propertyType}
+              onValueChange={(value) =>
+                setSearchParams({ ...searchParams, propertyType: value })
+              }
+            >
               <SelectTrigger className="flex-1 border-[#f0f5ff]">
                 <div className="flex items-center gap-2.5">
                   <SvgHome className="w-5 h-5 text-[#646978]" />
@@ -74,7 +112,12 @@ const HeaderSection: React.FC = () => {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={searchParams.propertyFeatures}
+              onValueChange={(value) =>
+                setSearchParams({ ...searchParams, propertyFeatures: value })
+              }
+            >
               <SelectTrigger className="flex-1 border-[#f0f5ff]">
                 <div className="flex items-center gap-2.5">
                   <SvgSliders className="w-5 h-5 text-[#646978]" />
@@ -90,7 +133,12 @@ const HeaderSection: React.FC = () => {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              value={searchParams.budget}
+              onValueChange={(value) =>
+                setSearchParams({ ...searchParams, budget: value })
+              }
+            >
               <SelectTrigger className="flex-1 border-[#f0f5ff]">
                 <div className="flex items-center gap-2.5">
                   <SvgDollarSign className="w-5 h-5 text-[#646978]" />
@@ -108,7 +156,9 @@ const HeaderSection: React.FC = () => {
           </div>
 
           <div className="flex items-start gap-6 justify-end">
-            <Button className="px-16">Search</Button>
+            <Button className="px-16" onClick={handleSearch}>
+              Search
+            </Button>
           </div>
         </div>
       </div>

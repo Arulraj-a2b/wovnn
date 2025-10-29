@@ -47,11 +47,23 @@ export const PROPERTY_FEATURES_OPTIONS = [
 ];
 
 export const budgetRanges = [
-  { value: "0-200k", label: "$0 - $200,000" },
-  { value: "200k-500k", label: "$200,000 - $500,000" },
-  { value: "500k-1m", label: "$500,000 - $1M" },
-  { value: "1m-2m", label: "$1M - $2M" },
-  { value: "2m+", label: "$2M+" },
+  { value: "0-100k", label: "$0 - $100,000" },
+  { value: "100k-200k", label: "$100,000 - $200,000" },
+  { value: "200k-300k", label: "$200,000 - $300,000" },
+  { value: "300k-400k", label: "$300,000 - $400,000" },
+  { value: "400k-500k", label: "$400,000 - $500,000" },
+  { value: "500k-600k", label: "$500,000 - $600,000" },
+  { value: "600k-700k", label: "$600,000 - $700,000" },
+  { value: "700k-800k", label: "$700,000 - $800,000" },
+  { value: "800k-900k", label: "$800,000 - $900,000" },
+  { value: "900k-1m", label: "$900,000 - $1M" },
+  { value: "1m-1.5m", label: "$1M - $1.5M" },
+  { value: "1.5m-2m", label: "$1.5M - $2M" },
+  { value: "2m-2.5m", label: "$2M - $2.5M" },
+  { value: "2.5m-3m", label: "$2.5M - $3M" },
+  { value: "3m-4m", label: "$3M - $4M" },
+  { value: "4m-5m", label: "$4M - $5M" },
+  { value: "5m+", label: "$5M+" },
 ];
 
 export const advancedSearchOptions = [
