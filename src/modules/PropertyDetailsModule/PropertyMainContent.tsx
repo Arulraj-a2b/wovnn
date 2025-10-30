@@ -69,14 +69,14 @@ const PropertyMainContent = ({ property }: PropertyMainContentProps) => {
           <div className="flex items-center gap-2 text-sm mb-6">
             <button
               onClick={() => navigate(routes.HOME)}
-              className="text-[#787d8c] hover:text-[#22a9e0] transition-colors"
+              className="text-[#787d8c] hover:text-[#22a9e0] transition-colors cursor-pointer"
             >
               United States
             </button>
             <SvgBreadcrumbArrow className="w-4 h-4" />
             <button
               onClick={() => navigate(routes.HOME)}
-              className="text-[#787d8c] hover:text-[#22a9e0] transition-colors"
+              className="text-[#787d8c] hover:text-[#22a9e0] transition-colors cursor-pointer"
             >
               {property.address.state}
             </button>
