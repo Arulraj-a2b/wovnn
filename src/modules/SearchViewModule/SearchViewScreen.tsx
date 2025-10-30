@@ -287,7 +287,7 @@ const SearchViewScreen: React.FC = () => {
                     <div key={property.mlsId} id={`property-${property.mlsId}`}>
                       <PropertyCard
                         property={property}
-                        isViewMode={true}
+                        isViewMode
                         onClick={() => handlePropertyClick(property)}
                         isSelected={selectedProperty?.mlsId === property.mlsId}
                       />

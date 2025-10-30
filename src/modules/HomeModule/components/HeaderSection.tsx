@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { routes } from "@/routes/routesPath";
 import { Input } from "@/components/ui/input";
 import { headerSectionImg } from "../../../assets/images";
 import {
@@ -23,7 +23,6 @@ import {
   budgetRanges,
 } from "../constants/searchOptions";
 import Header from "./Header";
-import { routes } from "@/routes/routesPath";
 
 const HeaderSection: React.FC = () => {
   const navigate = useNavigate();

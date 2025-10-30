@@ -10,7 +10,7 @@ const ListingCard: React.FC<ListingCardComponentProps> = React.memo(
   ({ image, title, address, price, beds, baths, sqft, onClick }) => {
     return (
       <div
-        className="bg-white rounded-[10px] shadow-[0px_0px_20px_0px_rgba(208,208,208,0.25)] overflow-hidden flex cursor-pointer hover:shadow-[0px_0px_30px_0px_rgba(208,208,208,0.4)] transition-shadow"
+        className="bg-white hover:scale-105  duration-200 rounded-[10px] shadow-[0px_0px_20px_0px_rgba(208,208,208,0.25)] overflow-hidden flex cursor-pointer hover:shadow-[0px_0px_30px_0px_rgba(208,208,208,0.4)] transition-shadow"
         onClick={onClick}
       >
         <div className="w-[237px] h-[178px] shrink-0">
