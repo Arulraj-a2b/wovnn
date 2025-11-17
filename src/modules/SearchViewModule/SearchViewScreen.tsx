@@ -239,76 +239,95 @@ const SearchViewScreen: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-full relative">
+    <div className="h-screen w-full flex flex-col">
       <div className="bg-[#141928] py-2 px-[90px]">
         <Header isSearchView />
       </div>
 
-      <div className=" w-full h-full">
-        <MapView
-          properties={allProperties}
-          onMarkerClick={handleMarkerClick}
-          selectedProperty={selectedProperty}
-        />
-      </div>
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-96 h-full">
+          <iframe
+            src="https://chat.a2v2.ai/6919f4310b514c50bac0fcea"
+            width="100%"
+            allow="clipboard-write"
+            style={{ height: "100%", minHeight: "700px", border: "none" }}
+            title="Chat Assistant"
+          />
+        </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-20">
-        <div>
-          <div className="py-4 px-6">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-bold text-[#141928]">
-                {totalCount > 0 ? totalCount : allProperties.length} Properties
-                Found{" "}
-                {allProperties.length < totalCount &&
-                  `(Showing ${allProperties.length})`}
-              </h2>
-              {selectedProperty && (
-                <button
-                  onClick={() => setSelectedProperty(null)}
-                  className="text-sm text-[#22a9e0] hover:text-[#1c8ab8] font-medium"
-                >
-                  Clear Selection
-                </button>
-              )}
-            </div>
+        <div className="flex-1 h-full relative overflow-hidden">
+          {/* Map section */}
+          <div className="w-full h-full">
+            <MapView
+              properties={allProperties}
+              onMarkerClick={handleMarkerClick}
+              selectedProperty={selectedProperty}
+            />
+          </div>
 
-            <div
-              ref={scrollContainerRef}
-              onScroll={handleScroll}
-              className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
-              style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "#9ca3af #e5e7eb",
-              }}
-            >
-              {allProperties.length > 0 ? (
-                <>
-                  {allProperties.map((property) => (
-                    <div key={property.mlsId} id={`property-${property.mlsId}`}>
-                      <PropertyCard
-                        property={property}
-                        isViewMode
-                        onClick={() => handlePropertyClick(property)}
-                        isSelected={selectedProperty?.mlsId === property.mlsId}
-                      />
-                    </div>
-                  ))}
-                  {isLoadingMore && (
-                    <div className="w-[280px] h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22a9e0] mx-auto mb-2"></div>
-                        <p className="text-[#22a9e0] text-sm">
-                          Loading more...
-                        </p>
+          {/* Property cards section at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 z-20">
+            <div className="py-4 px-6">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-lg font-bold text-[#141928]">
+                  {totalCount > 0 ? totalCount : allProperties.length}{" "}
+                  Properties Found{" "}
+                  {allProperties.length < totalCount &&
+                    `(Showing ${allProperties.length})`}
+                </h2>
+                {selectedProperty && (
+                  <button
+                    onClick={() => setSelectedProperty(null)}
+                    className="text-sm text-[#22a9e0] hover:text-[#1c8ab8] font-medium"
+                  >
+                    Clear Selection
+                  </button>
+                )}
+              </div>
+
+              <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+                style={{
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#9ca3af #e5e7eb",
+                }}
+              >
+                {allProperties.length > 0 ? (
+                  <>
+                    {allProperties.map((property) => (
+                      <div
+                        key={property.mlsId}
+                        id={`property-${property.mlsId}`}
+                      >
+                        <PropertyCard
+                          property={property}
+                          isViewMode
+                          onClick={() => handlePropertyClick(property)}
+                          isSelected={
+                            selectedProperty?.mlsId === property.mlsId
+                          }
+                        />
                       </div>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="w-full text-center py-8">
-                  <p className="text-gray-500">No properties found</p>
-                </div>
-              )}
+                    ))}
+                    {isLoadingMore && (
+                      <div className="w-[280px] h-full flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22a9e0] mx-auto mb-2"></div>
+                          <p className="text-[#22a9e0] text-sm">
+                            Loading more...
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="w-full text-center py-8">
+                    <p className="text-gray-500">No properties found</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
